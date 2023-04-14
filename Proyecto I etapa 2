@@ -1,0 +1,120 @@
+#include <stdio.h>
+
+    struct Estudiante{
+        int Matricula;
+        char Nombre[50], ApellidoPaterno[50], ApellidoMaterno[50], Carrera[20], Correo[15];
+        int Telefono;
+    };
+
+    struct Estudiante AltaEstudiante(struct Estudiante estudiante){
+        printf("Matricula: ");
+        scanf("%d", &estudiante.Matricula );
+        printf("Nombre: ");
+        scanf("%s", estudiante.Nombre );
+        printf("Apellido Paterno: ");
+        scanf("%s", estudiante.ApellidoPaterno );
+        printf("Apellido Materno: ");
+        scanf("%s", estudiante.ApellidoMaterno );
+        printf("Carrera: ");
+        scanf("%s", estudiante.Carrera );
+        printf("Correo Electronico: ");
+        scanf("%s", estudiante.Correo );
+        printf("Telefono: ");
+        scanf("%d", &estudiante.Telefono );
+        printf("\n");
+        printf("Alta del estudiante exitoso, Gracias!\n");
+    
+        return estudiante;
+    }
+
+    void imprimirEstudiante(struct Estudiante estudiante){
+        printf("Matricula: %d \n", estudiante.Matricula);
+        printf("Nombre: %s \n", estudiante.Nombre);
+        printf("Apellido Paterno: %s \n", estudiante.ApellidoPaterno);
+        printf("Apellido Materno: %s \n", estudiante.ApellidoMaterno);
+        printf("Carrera: %s \n", estudiante.Carrera);
+        printf("Correo Electronico: %s \n", estudiante.Correo);
+        printf("Telefono: %d \n", estudiante.Telefono);
+    }
+
+    /*struct Estudiante EliminarEstudiante( struct Estudiante estudiante){
+        estudiante.Matricula = 0;
+        estudiante.Nombre= 0;
+        estudiante.ApellidoPaterno=" ";
+        estudiante.ApellidoMaterno=" ";
+        estudiante.Carrera=" ";
+        estudiante.Correo=" ";
+        estudiante.Telefono=" ";
+    }*/
+
+    int main(){
+    
+        int c, opcion, posicion = 0, matriculaBaja;
+        char eliminar;
+    
+        struct Estudiante estudiante[20];
+    
+        printf("Control estudiantes \n");
+    
+        do{
+            printf("1. Alta de estudiante \n");
+            printf("2. Baja de estudiante \n");
+            printf("3. Modificar estudiante \n");
+            printf("4. Buscar estudiante \n");
+            printf("5. Salir \n");
+        
+            printf("Introduce cualquier opcion: ");
+            scanf("%d", &opcion);
+        
+            //Inicio del menu
+            switch ( opcion ){
+                // Opcion 1. Alta de estudiantes
+                case 1:
+                    printf("\n \t \t Alta de estudiantes\n");
+                    estudiante[posicion] = AltaEstudiante(estudiante[posicion]);
+                    printf("El estudiante ha sido dado de alta exitosamente. Sus datos has sido guardados en el registro %d \n\n", posicion);
+                    posicion++;
+                break;
+            
+                // Opcion 2. Baja de estudiantes
+                case 2:
+                    printf("\n \t \t Baja de estudiantes\n");
+                    printf("Ingresa la matricula del estudiante que deseas dar de baja: ");
+                    scanf("%d", &matriculaBaja);
+                    for (int i=0; i<=posicion; i++){
+                        if (estudiante[i].Matricula == matriculaBaja){
+                            printf("SE ENCONTRO AL ESTUDIANTE\n");
+                            imprimirEstudiante(estudiante[i]);
+                            printf("Deseas eliminar la informacion del estudiante? (s/n) \n");
+                            scanf("  %c", &eliminar);
+                            if (eliminar == 's' || eliminar == 'S'){
+                                printf("Entendido \n");
+                                //EliminarEstudiante(estudiante[i]);
+                            }else if(eliminar == 'n' || eliminar == 'N') {
+                                printf("Entendido, no eliminar");
+                            }
+                            else puts("ERROR");
+                        }
+                    }
+                break;
+            
+                // Opcion 3. Modificaciones de estudiantes
+                case 3:
+                    printf("\n \t \t Modificar estudiante\n");
+            
+                break;
+            
+                // Opcion 4. Busqueda de estudiantes
+                case 4:
+                    printf("\n \t \t Buscar estudiante\n");
+            
+                break;
+            
+                //Caso que escoje un numero < 5
+                default:
+                    puts("Error");
+            }
+        } while ( opcion != 5);
+
+        return 0;
+    }
